@@ -13,9 +13,9 @@ cache:
 install:
   # go one level up to install renpy folder at the same level as the repo folder
   - cd ..
-  # only download renpy if not cached already
+  # only download renpy if not cached already (check the file, not the directory, as the directory is created for caching anyway)
   - |
-    if [ ! -d "renpy-7.2.2-sdk" ]; then
+    if [ ! -x "renpy-7.2.2-sdk/renpy.sh" ]; then
       wget https://www.renpy.org/dl/7.2.2/renpy-7.2.2-sdk.tar.bz2
       tar xf renpy-7.2.2-sdk.tar.bz2
       rm renpy-7.2.2-sdk.tar.bz2
