@@ -1,0 +1,30 @@
+{
+	"folders":
+	[
+		{
+			"path": ".",
+			"file_exclude_patterns": ["*.rpyc"]
+		}
+	],
+	"build_systems":
+	[
+		{
+			"name": "Play",
+			"cmd":
+			[
+				"renpy.sh",
+				"${project_path}"
+			],
+			"variants": [
+				{
+					"name": "Windows",
+					"cmd":
+					[
+						"C:\\Users\\acro_\\Home\\Portable Applications\\renpy-7.2.2-sdk\\renpy.exe",
+						"${project_path}"
+					]
+				}
+			]
+		}
+	]
+}

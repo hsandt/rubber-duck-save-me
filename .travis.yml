@@ -1,0 +1,30 @@
+# adapted from https://gist.github.com/NumberA/588baf4398c89d4cd64c40cd718e0ed5
+
+# Specify the language and install dependencies
+language: python
+python:
+  - "2.7"
+
+cache:
+    directories:
+     - ../renpy-7.2.2-sdk
+
+# Install Ren'Py and navigate to the Ren'Py install directory
+install:
+  # go one level up to install renpy folder at the same level as the repo folder
+  - cd ..
+  # only download renpy if not cached already
+  - |
+    if [ ! -d "renpy-7.2.2-sdk" ]; then
+      wget https://www.renpy.org/dl/7.2.2/renpy-7.2.2-sdk.tar.bz2
+      tar xf renpy-7.2.2-sdk.tar.bz2
+      rm renpy-7.2.2-sdk.tar.bz2
+    fi
+  - cd renpy-7.2.2-sdk
+
+# Configure Ren'Py to not use ALSA to avoid ALSA dependency errors
+env:
+  - SDL_AUDIODRIVER=dummy
+
+# Run the tests
+script: ./renpy.sh "$TRAVIS_BUILD_DIR" lint
