@@ -4,19 +4,22 @@ define duck = Character("Rubber Duck", color="#FFFF00")
 
 label start:
 
+    # DEBUG
+    # show image "bg/Screen ref.png"
+
     scene bg bathroom
 
     show bathtub_back:
-        xpos 240
+        xpos 160
         ypos 240
     show character_head:
         xpos 480
-        ypos 320
+        ypos 300
     show rubber_duck:
-        xpos 720
+        xpos 800
         ypos 360
     show bathtub_front:
-        xpos 240
+        xpos 160
         ypos 240
 
     jump intro
