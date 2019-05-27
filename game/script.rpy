@@ -15,24 +15,32 @@ label start:
     show character_head:
         xpos 480
         ypos 300
-    show rubber_duck:
-        xpos 800
-        ypos 360
+    # show rubber_duck:
+    #     xpos 800
+    #     ypos 360
     show bathtub_front:
         xpos 160
         ypos 240
+
+    show screen bathroom
 
     jump intro
 
 label intro:
     # play music
+    $ is_talking = True
     mc "Uh..."
     mc "Is somebody here?"
     mc "I can't move my legs anymore... And my arms are not strong enough to drag me out of the bathtub!"
     mc "That's not good... I need to find a way to get out, or I will drown!"
+    $ is_talking = False
     window hide
     pause 1.0
     jump ending
+
+label rubber_duck:
+    "hello"
+    return
 
 label ending:
     window show

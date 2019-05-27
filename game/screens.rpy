@@ -1433,6 +1433,19 @@ screen quick_menu():
             textbutton _("Auto") action Preference("auto-forward", "toggle")
             textbutton _("Menu") action ShowMenu()
 
+# Custom in-game screens for imagebuttons
+screen bathroom:
+    imagebutton:
+        idle "rubber_duck"
+        xpos 800
+        ypos 360
+        sensitive not is_talking
+        # Performance issue: hovering adds 10% CPU, alternating hover and not hover adds 20% CPU due to
+        # Nvidia drivers limitation, so warn user not to do this too much.
+        # http://lemmasoft.renai.us/forums/viewtopic.php?f=8&t=19703&start=45#p259263
+        hovered SetField(config, "mouse", { "default": [("gui/cursor/Cursor_Talk.png", 14, 45)] })
+        unhovered SetField(config, "mouse", None)
+        action [ SetField(config, "mouse", None), Call("rubber_duck") ]
 
 style window:
     variant "small"
