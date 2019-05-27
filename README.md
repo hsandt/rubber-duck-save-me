@@ -10,3 +10,8 @@ A kind of escape room made with Ren'Py for [Taku's Mini Jam](https://itch.io/jam
 ## Assets copyright
 
 All assets not provided by Ren'Py are under Copyright, Long Nguyen Huu, 2019.
+
+## References
+
+* Bathtub model from [honestabeplumbing.com](http://www.honestabeplumbing.com/File/c1d9f037-e58e-41b3-b9b9-dd2e68929d1d)
+* Rubber duck from [pngimg.com](http://pngimg.com/download/45708)

@@ -12,6 +12,9 @@ label start:
     show character_head:
         xpos 480
         ypos 320
+    show rubber_duck:
+        xpos 720
+        ypos 360
     show bathtub_front:
         xpos 240
         ypos 240

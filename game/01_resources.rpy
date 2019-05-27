@@ -12,6 +12,7 @@ image overlay black = Solid("#000000")
 
 image bathtub_back = "images/props/Bathtub_Back.png"
 image bathtub_front = "images/props/Bathtub_Front.png"
+image rubber_duck = "images/props/RubberDuck.png"
 
 # Character
 
