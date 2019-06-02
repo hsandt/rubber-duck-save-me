@@ -18,9 +18,6 @@ label start:
     show character_head lv1:
         xpos 480
         ypos 300
-    show faucet:
-        xpos 960
-        ypos 300
     show bathtub_front:
         xpos 160
         ypos 240
@@ -40,11 +37,37 @@ label intro:
     window hide
     pause 1.0
     $ stop_talking()
-    jump water_rises
+    while True:
+        python:
+            # to support redo actions when going forward in history
+            roll_forward = renpy.exports.roll_forward_info()
+
+            try:
+                # in general, rv will be None in this game (but it receives a value if we use a ChoiceReturn)
+                rv = renpy.ui.interact(mouse="menu", type="menu", roll_forward=roll_forward)
+            except (renpy.game.JumpException, renpy.game.CallException) as e:
+                rv = e
+            print("[DEBUG] ui.interact: {}".format(rv))
+
+            # save action for roll forward
+            renpy.exports.checkpoint(rv)
+
+            # no-transition parameter on basic interactions (optional)
+            if renpy.config.implicit_with_none:
+                renpy.game.interface.do_with(None, None)
+
+            # transfer call/jump for interactions sending user to another label
+            if isinstance(rv, (renpy.game.JumpException, renpy.game.CallException)):
+                raise rv
 
 label rubber_duck:
     "hello"
     return
+
+label use_faucet:
+    "You turn the faucet on."
+    call water_rises
+    jump ending
 
 label water_rises:
     $ raise_water()
@@ -57,7 +80,6 @@ label water_rises:
     # (seems to be set in options.rpy config, but not sure how to change this)
     # so always set a transition (whether instant or dissolve) so both types of images follow it and are updated in sync
     with dissolve
-    jump ending
 
 label ending:
     $ start_talking()
@@ -72,7 +94,9 @@ label ending:
     staff "Are you alright??"
     mc "Yeah, thank you... I was about to dro-- *blub blub blub*"
     staff "Hey, hold on! Hold on!!"
-    show overlay black with dissolve
+    hide screen bathroom
+    show overlay black
+    with dissolve
     "Jeremiah was saved in extremis from an imminent death."
     "He was grateful, of course, to his incredible wits, but also to the rubber duck, a small being that helped him to formulate his problem and find innovative solutions."
     "He also promised never to stay in a freezing cold bath again."

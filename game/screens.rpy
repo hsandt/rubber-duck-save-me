@@ -1450,6 +1450,15 @@ screen bathroom:
         unhovered SetField(config, "mouse", None)
         action [ SetField(config, "mouse", None), Call("rubber_duck") ]
 
+    imagebutton:
+        idle "faucet"
+        xpos 960
+        ypos 300
+        sensitive not is_talking
+        hovered SetField(config, "mouse", { "default": [("gui/cursor/Cursor_Hand.png", 15, 32)] })
+        unhovered SetField(config, "mouse", None)
+        action [ SetField(config, "mouse", None), Call("use_faucet") ]
+
 style window:
     variant "small"
     background "gui/phone/textbox.png"
