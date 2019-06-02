@@ -1438,7 +1438,10 @@ screen bathroom:
     imagebutton:
         idle "rubber_duck"
         xpos 800
-        ypos 360
+        if water_level == 1:
+            ypos 360 + 18
+        else:
+            ypos 360
         sensitive not is_talking
         # Performance issue: hovering adds 10% CPU, alternating hover and not hover adds 20% CPU due to
         # Nvidia drivers limitation, so warn user not to do this too much.

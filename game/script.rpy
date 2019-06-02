@@ -12,12 +12,12 @@ label start:
     show bathtub_back:
         xpos 160
         ypos 240
-    show character_head:
+    show water lv1:
+        xpos 160
+        ypos 240
+    show character_head lv1:
         xpos 480
         ypos 300
-    # show rubber_duck:
-    #     xpos 800
-    #     ypos 360
     show bathtub_front:
         xpos 160
         ypos 240
@@ -37,11 +37,21 @@ label intro:
     window hide
     pause 1.0
     $ stop_talking()
-    jump ending
+    jump water_rises
 
 label rubber_duck:
     "hello"
     return
+
+label water_rises:
+    $ raise_water()
+    show water lv2
+    show character_head lv2
+    # if you don't indicate a transition, images above will have no transition whereas the duck from screen bathroom will dissolve
+    # (seems to be set in options.rpy config, but not sure how to change this)
+    # so always set a transition (whether instant or dissolve) so both types of images follow it and are updated in sync
+    with dissolve
+    jump ending
 
 label ending:
     $ start_talking()
