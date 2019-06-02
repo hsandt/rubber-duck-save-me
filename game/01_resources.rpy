@@ -13,6 +13,8 @@ image overlay black = Solid("#000000")
 image bathtub_back = "images/props/Bathtub_Back.png"
 image water lv1 = "images/props/Water_Level1.png"
 image water lv2 = "images/props/Water_Level2.png"
+image faucet = "images/props/Faucet.png"
+image faucet_water = "images/props/Faucet_Water.png"
 image bathtub_front = "images/props/Bathtub_Front.png"
 image rubber_duck = "images/props/RubberDuck.png"
 

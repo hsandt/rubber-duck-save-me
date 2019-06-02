@@ -18,6 +18,9 @@ label start:
     show character_head lv1:
         xpos 480
         ypos 300
+    show faucet:
+        xpos 960
+        ypos 300
     show bathtub_front:
         xpos 160
         ypos 240
@@ -47,6 +50,9 @@ label water_rises:
     $ raise_water()
     show water lv2
     show character_head lv2
+    show faucet_water:
+        xpos 960
+        ypos 300
     # if you don't indicate a transition, images above will have no transition whereas the duck from screen bathroom will dissolve
     # (seems to be set in options.rpy config, but not sure how to change this)
     # so always set a transition (whether instant or dissolve) so both types of images follow it and are updated in sync
