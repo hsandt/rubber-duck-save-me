@@ -45,7 +45,9 @@ label intro:
 
 # Interaction loop
 label free_interaction:
-    while True:
+    $ game_over = False
+
+    while not game_over:
         python:
             # to support redo actions when going forward in history
             roll_forward = renpy.exports.roll_forward_info()
@@ -67,6 +69,8 @@ label free_interaction:
             # transfer call/jump for interactions sending user to another label
             if isinstance(rv, (renpy.game.JumpException, renpy.game.CallException)):
                 raise rv
+
+    return
 
 # Rubber duck hints
 label rubber_duck:
@@ -103,6 +107,7 @@ label water_rises:
     # (seems to be set in options.rpy config, but not sure how to change this)
     # so always set a transition (whether instant or dissolve) so both types of images follow it and are updated in sync
     with dissolve
+    return
 
 label ending:
     $ start_talking()
@@ -127,3 +132,5 @@ label ending:
     # stop music fadeout 1.0
     pause 1.0
     $ stop_talking()
+    $ game_over = True
+    return
