@@ -36,7 +36,15 @@ label intro:
     mc "That's not good... I need to find a way to get out, or I will drown!"
     window hide
     pause 1.0
+    window show
+    mc "OK, cool down... What if I applied the Rubber Duck method? I'll just state my problem in front of that fine toy, as if I was talking to a person."
+    mc "Hopefully, it will help me find a solution."
+    window hide
     $ stop_talking()
+    jump free_interaction
+
+# Interaction loop
+label free_interaction:
     while True:
         python:
             # to support redo actions when going forward in history
@@ -60,15 +68,30 @@ label intro:
             if isinstance(rv, (renpy.game.JumpException, renpy.game.CallException)):
                 raise rv
 
+# Rubber duck hints
 label rubber_duck:
-    "hello"
+    $ start_talking()
+    mc "So, Rubber duck, here is the thing. I'm stuck in that bathtub and I need to get out."
+    duck "..."
+    mc "My legs are completely frozen, and all I can do is turn my head a bit and move my hands."
+    duck "..."
+    mc "If only there was some way to alert the hotel staff outside... I need something that makes enough noise."
+    duck "..."
+    mc "Noise? That's right, I need to trigger the alarm system! If I remember correctly, it starts when the water level is too high."
+    mc "So I just need to raise the level. Thanks, rubber duck!"
+    duck "..."
+    $ stop_talking()
     return
 
+# Various interactions
 label use_faucet:
+    $ start_talking()
     "You turn the faucet on."
     call water_rises
+    $ stop_talking()
     jump ending
 
+# Events
 label water_rises:
     $ raise_water()
     show water lv2
