@@ -1447,6 +1447,8 @@ screen bathroom:
         # Nvidia drivers limitation, so warn user not to do this too much.
         # http://lemmasoft.renai.us/forums/viewtopic.php?f=8&t=19703&start=45#p259263
         hovered SetField(config, "mouse", { "default": [("gui/cursor/Cursor_Talk.png", 14, 45)] })
+        # Known issue: unhovered is not called if mouse is hovering imagebutton, then you roll back
+        # to enter into a past dialogue (we fixed the roll forward with a hack in start_talking)
         unhovered SetField(config, "mouse", None)
         action [ SetField(config, "mouse", None), Call("rubber_duck") ]
 

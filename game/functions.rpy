@@ -5,6 +5,9 @@ init -1 python:
 
     def start_talking():
         store.is_talking = True
+        # hack to fix cursor not reset when rolling forward into dialogue with mouse hovering interactable object
+        # (it only works with start because the python statement is executed before the first line of dialogue)
+        config.mouse = None
 
     def stop_talking():
         store.is_talking = False
