@@ -28,14 +28,15 @@ label start:
 
 label intro:
     # play music
-    $ is_talking = True
+    $ start_talking()
+    window show
     mc "Uh..."
     mc "Is somebody here?"
     mc "I can't move my legs anymore... And my arms are not strong enough to drag me out of the bathtub!"
     mc "That's not good... I need to find a way to get out, or I will drown!"
-    $ is_talking = False
     window hide
     pause 1.0
+    $ stop_talking()
     jump ending
 
 label rubber_duck:
@@ -43,6 +44,7 @@ label rubber_duck:
     return
 
 label ending:
+    $ start_talking()
     window show
     staff "Hello? Is there somebody?"
     mc "Yes! I'm stuck in the bath and I can't move my legs! Can you get me out of here?"
@@ -61,3 +63,4 @@ label ending:
     window hide
     # stop music fadeout 1.0
     pause 1.0
+    $ stop_talking()
