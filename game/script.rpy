@@ -27,7 +27,8 @@ label start:
     jump intro
 
 label intro:
-    # play music
+    play music bathroom
+
     $ start_talking()
     window show
     mc "Uh..."
@@ -129,7 +130,9 @@ label ending:
     "He was grateful, of course, to his incredible wits, but also to the rubber duck, a small being that helped him to formulate his problem and find innovative solutions."
     "He also promised never to stay in a freezing cold bath again."
     window hide
-    # stop music fadeout 1.0
+
+    stop music fadeout 1.0
+    
     pause 1.0
     $ stop_talking()
     $ game_over = True

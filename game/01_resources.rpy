@@ -27,8 +27,8 @@ image character_head lv2 = "images/char/Character_Head_Level2.png"
 
 ## BGM
 
-# define audio.title = "music/title.mp3"
-# define audio.title = "music/title.mp3"
+# define audio.title = "audio/bgm/title.mp3"
+define audio.bathroom = "audio/bgm/Bathroom_v6_Harpsichord.ogg"
 
 ## SFX
 define audio.break_door = "sfx/break_door.wav"
