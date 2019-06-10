@@ -17,6 +17,8 @@ image faucet = "images/props/Faucet.png"
 image faucet_water = "images/props/Faucet_Water.png"
 image bathtub_front = "images/props/Bathtub_Front.png"
 image rubber_duck = "images/props/RubberDuck.png"
+image bath_alarm lv1 = "images/props/BathAlarm_Level1.png"
+image bath_alarm lv2 = "images/props/BathAlarm_Level2.png"
 
 # Character
 

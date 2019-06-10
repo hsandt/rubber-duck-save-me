@@ -12,6 +12,9 @@ label start:
     show bathtub_back:
         xpos 160
         ypos 240
+    show bath_alarm lv1:
+        xpos 680
+        ypos 340
     show water lv1:
         xpos 160
         ypos 240
@@ -93,6 +96,7 @@ label use_faucet:
     $ start_talking()
     "You turn the faucet on."
     call water_rises
+    "The goldfish-shaped bath alarm starts ringing like hell."
     $ stop_talking()
     jump ending
 
@@ -101,6 +105,7 @@ label water_rises:
     $ raise_water()
     show water lv2
     show character_head lv2
+    show bath_alarm lv2
     show faucet_water:
         xpos 960
         ypos 300
@@ -132,7 +137,7 @@ label ending:
     window hide
 
     stop music fadeout 1.0
-    
+
     pause 1.0
     $ stop_talking()
     $ game_over = True
