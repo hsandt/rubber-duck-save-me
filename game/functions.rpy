@@ -1,6 +1,12 @@
 init -1 python:
 
+    # The current objective advances as puzzles are solved. They allow us to determine the next Rubber Duck hint.
+    # List of objectives:
+    # escape
+    # reach faucet
+    store.current_objective = "escape"
     store.is_talking = False
+    store.taken_mop = False
     store.water_level = 1
 
     def start_talking():
@@ -11,6 +17,10 @@ init -1 python:
 
     def stop_talking():
         store.is_talking = False
+
+    def take_mop():
+        store.taken_mop = True
+        store.current_objective = "use mop on faucet"
 
     def raise_water():
         store.water_level = 2

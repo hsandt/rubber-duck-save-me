@@ -19,6 +19,7 @@ image bathtub_front = "images/props/Bathtub_Front.png"
 image rubber_duck = "images/props/RubberDuck.png"
 image bath_alarm lv1 = "images/props/BathAlarm_Level1.png"
 image bath_alarm lv2 = "images/props/BathAlarm_Level2.png"
+image mop = "images/props/Mop.png"
 
 # Character
 

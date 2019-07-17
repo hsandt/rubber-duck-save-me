@@ -1461,6 +1461,19 @@ screen bathroom:
         unhovered SetField(config, "mouse", None)
         action [ SetField(config, "mouse", None), Call("use_faucet") ]
 
+    if not taken_mop:
+        imagebutton:
+            idle "mop"
+            xpos 300
+            ypos 300
+            sensitive not is_talking
+            # the mop sprite is very diagonal and has many "holes" in the box, so support alpha-based click
+            # actually, the body is too thin... the best is to add a separate mask picture, an invisible box, to handle the click
+            # focus_mask True
+            hovered SetField(config, "mouse", { "default": [("gui/cursor/Cursor_Hand.png", 15, 32)] })
+            unhovered SetField(config, "mouse", None)
+            action [ SetField(config, "mouse", None), Call("take_mop") ]
+
 style window:
     variant "small"
     background "gui/phone/textbox.png"

@@ -79,26 +79,50 @@ label free_interaction:
 # Rubber duck hints
 label rubber_duck:
     $ start_talking()
-    mc "So, Rubber duck, here is the thing. I'm stuck in that bathtub and I need to get out."
-    duck "..."
-    mc "My legs are completely frozen, and all I can do is turn my head a bit and move my hands."
-    duck "..."
-    mc "If only there was some way to alert the hotel staff outside... I need something that makes enough noise."
-    duck "..."
-    mc "Noise? That's right, I need to trigger the alarm system! If I remember correctly, it starts when the water level is too high."
-    mc "So I just need to raise the level. Thanks, rubber duck!"
-    duck "..."
+    if current_objective == "escape":
+        mc "So, Rubber duck, here is the thing. I'm stuck in that bathtub and I need to get out."
+        duck "..."
+        mc "My legs are completely frozen, and all I can do is turn my head a bit and move my hands."
+        duck "..."
+        mc "If only there was some way to alert the hotel staff outside... I need something that makes enough noise."
+        duck "..."
+        mc "Noise? That's right, I need to trigger the alarm system! If I remember correctly, it starts when the water level is too high."
+        mc "So I just need to raise the level. Thanks, rubber duck!"
+        duck "..."
+    elif current_objective == "reach faucet":
+        mc "I want to raise the water level but I can't reach that damn faucet!"
+        mc "How can I reach it?"
+        duck "..."
+        mc "My legs can't move so I have to stretch my arms... But they're not long enough. If only I had a way to extend my arm..."
+        duck "..."
+        mc "That's it! I need some kind of pole! There may be one in this bathroom. Thanks, rubber duck!"
+        duck "..."
+    else:
+        mc "I think I got everything I need!"
     $ stop_talking()
     return
 
 # Various interactions
+label take_mop:
+    $ start_talking()
+    $ take_mop()
+    mc "I got it!"
+    $ stop_talking()
+    return
+
 label use_faucet:
     $ start_talking()
-    "You turn the faucet on."
-    call water_rises
-    "The goldfish-shaped bath alarm starts ringing like hell."
-    $ stop_talking()
-    jump ending
+    if taken_mop:
+        "You turn the faucet on."
+        call water_rises
+        "The goldfish-shaped bath alarm starts ringing like hell."
+        $ stop_talking()
+        jump ending
+    else:
+        mc "Uhng... I can't reach it my arms!"
+        $ current_objective = "reach faucet"
+        $ stop_talking()
+        return
 
 # Events
 label water_rises:
