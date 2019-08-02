@@ -24,6 +24,9 @@ label start:
     show bathtub_front:
         xpos 160
         ypos 240
+    show mirror:
+        xpos 640
+        ypos 20
 
     show screen bathroom
 
