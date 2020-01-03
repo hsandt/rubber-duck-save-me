@@ -1461,7 +1461,23 @@ screen bathroom:
         unhovered SetField(config, "mouse", None)
         action [ SetField(config, "mouse", None), Call("use_faucet") ]
 
-    if not taken_mop:
+    imagebutton:
+        if cleaned_mirror:
+            idle "mirror clean"
+        else:
+            idle "mirror dirty"
+        xpos 640
+        ypos 20
+        sensitive not is_talking
+        hovered SetField(config, "mouse", { "default": [("gui/cursor/Cursor_Eye.png", 40, 30)] })
+        unhovered SetField(config, "mouse", None)
+        action [ SetField(config, "mouse", None), Call("look_mirror") ]
+
+    if not cleaned_mirror:
+        image "darkness":
+            xpos 0
+            ypos 0
+    elif not taken_mop:
         imagebutton:
             idle "mop"
             xpos 300

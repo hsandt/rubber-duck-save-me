@@ -8,6 +8,10 @@ image bg bathroom = "images/bg/Bathroom.png"
 
 image overlay black = Solid("#000000")
 
+## FX
+
+image darkness = "images/fx/Darkness.png"
+
 ## Props
 
 image bathtub_back = "images/props/Bathtub_Back.png"
@@ -20,7 +24,8 @@ image rubber_duck = "images/props/RubberDuck.png"
 image bath_alarm lv1 = "images/props/BathAlarm_Level1.png"
 image bath_alarm lv2 = "images/props/BathAlarm_Level2.png"
 image mop = "images/props/Mop.png"
-image mirror = "images/props/Mirror.png"
+image mirror clean = "images/props/Mirror_Clean.png"
+image mirror dirty = "images/props/Mirror_Dirty.png"
 
 # Character
 

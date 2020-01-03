@@ -24,9 +24,6 @@ label start:
     show bathtub_front:
         xpos 160
         ypos 240
-    show mirror:
-        xpos 640
-        ypos 20
 
     show screen bathroom
 
@@ -106,6 +103,20 @@ label rubber_duck:
     return
 
 # Various interactions
+label look_mirror:
+    $ start_talking()
+    if not cleaned_mirror:
+        mc "Too much mist and dirt on this mirror, I can't see anything."
+        # cheat: clean with your hands until cloth is added
+        mc "Let's clean this."
+        # todo: sfx cleaning up
+        $ clean_mirror()
+        mc "Ah, that's better."
+    else:
+        mc "I can see a mop behind me."
+    $ stop_talking()
+    return
+
 label take_mop:
     $ start_talking()
     $ take_mop()
