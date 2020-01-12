@@ -11,6 +11,7 @@ image overlay black = Solid("#000000")
 ## FX
 
 image darkness = "images/fx/Darkness.png"
+image darkness_mask = "images/fx/Darkness_Mask.png"
 
 ## Props
 
@@ -24,8 +25,10 @@ image rubber_duck = "images/props/RubberDuck.png"
 image bath_alarm lv1 = "images/props/BathAlarm_Level1.png"
 image bath_alarm lv2 = "images/props/BathAlarm_Level2.png"
 image mop = "images/props/Mop.png"
+image mop_mask = "images/props/Mop_Mask.png"
 image mirror clean = "images/props/Mirror_Clean.png"
 image mirror dirty = "images/props/Mirror_Dirty.png"
+image cloth = "images/props/Cloth.png"
 
 # Character
 

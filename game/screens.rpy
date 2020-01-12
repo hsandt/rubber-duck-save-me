@@ -1469,26 +1469,43 @@ screen bathroom:
         xpos 640
         ypos 20
         sensitive not is_talking
-        hovered SetField(config, "mouse", { "default": [("gui/cursor/Cursor_Eye.png", 40, 30)] })
+        if taken_cloth and not cleaned_mirror:
+            hovered SetField(config, "mouse", { "default": [("gui/cursor/Cursor_Hand.png", 15, 32)] })
+        else:
+            hovered SetField(config, "mouse", { "default": [("gui/cursor/Cursor_Eye.png", 40, 30)] })
         unhovered SetField(config, "mouse", None)
         action [ SetField(config, "mouse", None), Call("look_mirror") ]
 
     if not cleaned_mirror:
-        image "darkness":
+        imagebutton:
+            idle "darkness"
             xpos 0
             ypos 0
+            sensitive not is_talking
+            focus_mask "darkness_mask"
+            hovered SetField(config, "mouse", { "default": [("gui/cursor/Cursor_Eye.png", 40, 30)] })
+            unhovered SetField(config, "mouse", None)
+            action [ SetField(config, "mouse", None), Call("look_darkness") ]
     elif not taken_mop:
         imagebutton:
             idle "mop"
-            xpos 300
-            ypos 300
+            xpos 280
+            ypos 280
             sensitive not is_talking
-            # the mop sprite is very diagonal and has many "holes" in the box, so support alpha-based click
-            # actually, the body is too thin... the best is to add a separate mask picture, an invisible box, to handle the click
-            # focus_mask True
+            focus_mask "mop_mask"
             hovered SetField(config, "mouse", { "default": [("gui/cursor/Cursor_Hand.png", 15, 32)] })
             unhovered SetField(config, "mouse", None)
             action [ SetField(config, "mouse", None), Call("take_mop") ]
+
+    if not taken_cloth:
+        imagebutton:
+            idle "cloth"
+            xpos 660
+            ypos 420
+            sensitive not is_talking
+            hovered SetField(config, "mouse", { "default": [("gui/cursor/Cursor_Hand.png", 15, 32)] })
+            unhovered SetField(config, "mouse", None)
+            action [ SetField(config, "mouse", None), Call("take_cloth") ]
 
 style window:
     variant "small"

@@ -1,4 +1,4 @@
-﻿define mc = Character("Jeremiah", color="#FF9331")
+define mc = Character("Jeremiah", color="#FF9331")
 define staff = Character("Staff member", color="#D881ED")
 define duck = Character("Rubber Duck", color="#FFFF00")
 
@@ -103,24 +103,38 @@ label rubber_duck:
     return
 
 # Various interactions
+label look_darkness:
+    $ start_talking()
+    mc "I can't turn my head in that direction, so I'm not sure what's behind me."
+    $ stop_talking()
+    return
+
 label look_mirror:
     $ start_talking()
     if not cleaned_mirror:
-        mc "Too much mist and dirt on this mirror, I can't see anything."
-        # cheat: clean with your hands until cloth is added
-        mc "Let's clean this."
-        # todo: sfx cleaning up
-        $ clean_mirror()
-        mc "Ah, that's better."
+        if taken_cloth:
+            mc "Let's clean this with the cloth."
+            # todo: sfx cleaning up
+            $ clean_mirror()
+            mc "Ah, that's better."
+        else:
+            mc "Too much mist and dirt on this mirror, I can't see anything."
     else:
         mc "I can see a mop behind me."
+    $ stop_talking()
+    return
+
+label take_cloth:
+    $ start_talking()
+    $ take_cloth()
+    mc "I got a microfiber cloth."
     $ stop_talking()
     return
 
 label take_mop:
     $ start_talking()
     $ take_mop()
-    mc "I got it!"
+    mc "I got the mop!"
     $ stop_talking()
     return
 
@@ -134,6 +148,7 @@ label use_faucet:
         jump ending
     else:
         mc "Uhng... I can't reach it my arms!"
+        $ tried_reach_faucet_with_hand = True
         $ current_objective = "reach faucet"
         $ stop_talking()
         return
