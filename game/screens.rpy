@@ -1435,6 +1435,18 @@ screen quick_menu():
 
 # Custom in-game screens for imagebuttons
 screen bathroom:
+    if taken_cloth and not soaked_cloth:
+        imagebutton:
+            # no image, it's just a mask (and we are drawing water lv1 in script.rpy using show already)
+            idle Null()
+            xpos 600
+            ypos 400
+            sensitive not is_talking
+            focus_mask "water_lv1_mask"
+            hovered SetField(config, "mouse", { "default": [("gui/cursor/Cursor_Hand.png", 15, 32)] })
+            unhovered SetField(config, "mouse", None)
+            action [ SetField(config, "mouse", None), Call("soak_cloth") ]
+
     imagebutton:
         idle "rubber_duck"
         xpos 800

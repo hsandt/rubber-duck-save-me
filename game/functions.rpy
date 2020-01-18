@@ -21,6 +21,7 @@ init -1 python:
     store.cleaned_mirror = False
     store.taken_mop = False
     store.taken_cloth = False
+    store.soaked_cloth = False
     store.water_level = 1
 
     # Interaction state
@@ -41,6 +42,10 @@ init -1 python:
 
     def take_cloth():
         store.taken_cloth = True
+        store.current_objective = "soak cloth"
+
+    def soak_cloth():
+        store.soaked_cloth = True
         store.current_objective = "clean mirror"
 
     def take_mop():

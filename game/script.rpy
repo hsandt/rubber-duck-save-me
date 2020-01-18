@@ -113,10 +113,13 @@ label look_mirror:
     $ start_talking()
     if not cleaned_mirror:
         if taken_cloth:
-            mc "Let's clean this with the cloth."
-            # todo: sfx cleaning up
-            $ clean_mirror()
-            mc "Ah, that's better."
+            if soaked_cloth:
+                mc "Let's clean this with the cloth."
+                # todo: sfx cleaning up
+                $ clean_mirror()
+                mc "Ah, that's better."
+            else:
+                mc "I'd like to clean the mirror with the cloth, but it's too dry."
         else:
             mc "Too much mist and dirt on this mirror, I can't see anything."
     else:
@@ -128,6 +131,15 @@ label take_cloth:
     $ start_talking()
     $ take_cloth()
     mc "I got a microfiber cloth."
+    $ stop_talking()
+    return
+
+label soak_cloth:
+    $ start_talking()
+    $ soak_cloth()
+    mc "Let's soak that cloth!"
+    # todo: SFX
+    mc "Here we go! Ready to clean."
     $ stop_talking()
     return
 
