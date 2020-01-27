@@ -1435,6 +1435,8 @@ screen quick_menu():
 
 # Custom in-game screens for imagebuttons
 screen bathroom:
+
+    # Water (to soak cloth only)
     if taken_cloth and not soaked_cloth:
         imagebutton:
             # no image, it's just a mask (and we are drawing water lv1 in script.rpy using show already)
@@ -1447,6 +1449,20 @@ screen bathroom:
             unhovered SetField(config, "mouse", None)
             action [ SetField(config, "mouse", None), Call("soak_cloth") ]
 
+    # Alarm
+    imagebutton:
+        if water_level == 1:
+            idle "bath_alarm lv1"
+        else:
+            idle "bath_alarm lv2"
+        xpos 680
+        ypos 340
+        sensitive not is_talking
+        hovered SetField(config, "mouse", { "default": [("gui/cursor/Cursor_Eye.png", 40, 30)] })
+        unhovered SetField(config, "mouse", None)
+        action [ SetField(config, "mouse", None), Call("look_bath_alarm") ]
+
+    # Rubber Duck
     imagebutton:
         idle "rubber_duck"
         xpos 800
@@ -1464,6 +1480,7 @@ screen bathroom:
         unhovered SetField(config, "mouse", None)
         action [ SetField(config, "mouse", None), Call("rubber_duck") ]
 
+    # Faucet
     imagebutton:
         idle "faucet"
         xpos 960
@@ -1473,6 +1490,7 @@ screen bathroom:
         unhovered SetField(config, "mouse", None)
         action [ SetField(config, "mouse", None), Call("use_faucet") ]
 
+    # Mirror
     imagebutton:
         if cleaned_mirror:
             idle "mirror clean"
@@ -1488,6 +1506,7 @@ screen bathroom:
         unhovered SetField(config, "mouse", None)
         action [ SetField(config, "mouse", None), Call("look_mirror") ]
 
+    # Darkness or mop behind
     if not cleaned_mirror:
         imagebutton:
             idle "darkness"
@@ -1509,6 +1528,7 @@ screen bathroom:
             unhovered SetField(config, "mouse", None)
             action [ SetField(config, "mouse", None), Call("take_mop") ]
 
+    # Cloth
     if not taken_cloth:
         imagebutton:
             idle "cloth"

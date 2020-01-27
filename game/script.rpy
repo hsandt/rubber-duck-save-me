@@ -1,20 +1,14 @@
-define mc = Character("Jeremiah", color="#FF9331")
+﻿define mc = Character("Jeremiah", color="#FF9331")
 define staff = Character("Staff member", color="#D881ED")
 define duck = Character("Rubber Duck", color="#FFFF00")
 
 label start:
-
-    # DEBUG
-    # show image "bg/Screen ref.png"
 
     scene bg bathroom
 
     show bathtub_back:
         xpos 160
         ypos 240
-    show bath_alarm lv1:
-        xpos 680
-        ypos 340
     show water lv1:
         xpos 160
         ypos 240
@@ -41,7 +35,7 @@ label intro:
     window hide
     pause 1.0
     window show
-    mc "OK, cool down... What if I applied the Rubber Duck method? I'll just state my problem in front of that fine toy, as if I was talking to a person."
+    mc "OK, cool down... What if I applied the method of Rubber Duck debugging? I'll just state my problem in front of that fine toy, as if I was talking to a person."
     mc "Hopefully, it will help me find a solution."
     window hide
     $ stop_talking()
@@ -61,7 +55,6 @@ label free_interaction:
                 rv = renpy.ui.interact(mouse="menu", type="menu", roll_forward=roll_forward)
             except (renpy.game.JumpException, renpy.game.CallException) as e:
                 rv = e
-            print("[DEBUG] ui.interact: {}".format(rv))
 
             # save action for roll forward
             renpy.exports.checkpoint(rv)
@@ -79,33 +72,73 @@ label free_interaction:
 # Rubber duck hints
 label rubber_duck:
     $ start_talking()
-    if current_objective == "escape":
-        mc "So, Rubber duck, here is the thing. I'm stuck in that bathtub and I need to get out."
-        duck "..."
-        mc "My legs are completely frozen, and all I can do is turn my head a bit and move my hands."
-        duck "..."
-        mc "If only there was some way to alert the hotel staff outside... I need something that makes enough noise."
-        duck "..."
-        mc "Noise? That's right, I need to trigger the alarm system! If I remember correctly, it starts when the water level is too high."
-        mc "So I just need to raise the level. Thanks, rubber duck!"
-        duck "..."
-    elif current_objective == "reach faucet":
-        mc "I want to raise the water level but I can't reach that damn faucet!"
-        mc "How can I reach it?"
-        duck "..."
-        mc "My legs can't move so I have to stretch my arms... But they're not long enough. If only I had a way to extend my arm..."
-        duck "..."
-        mc "That's it! I need some kind of pole! There may be one in this bathroom. Thanks, rubber duck!"
-        duck "..."
-    else:
-        mc "I think I got everything I need!"
+    $ topic = auto_pick_topic()  # v1
+    $ hint_label = call_hint(topic)
     $ stop_talking()
     return
 
+# we assume all hints below are surrounded by start/stop_talking so we don't need to
+# surround them again
+
+label hint_escape_0:
+    mc "So, Rubber duck, here is the thing. I'm stuck in that bathtub and I need to get out."
+    duck "..."
+    mc "My legs are completely frozen, and all I can do is turn my head a bit and move my arms."
+    duck "..."
+    mc "I need some way to alert the hotel staff outside... Something that makes a lot of noise."
+    duck "..."
+    mc "Hey! What about this fish-shaped alarm?"
+    duck "..."
+    $ unlock_topic("alarm", 0)
+    return
+
+label hint_escape_0_recall:
+    mc "I could use the alarm to escape, right?"
+    duck "..."
+    return
+
+label hint_alarm_0:
+    mc "Noise? That's right, I need to trigger the alarm system! If I remember correctly, it starts when the water level is too high."
+    mc "So I just need to raise the level. Thanks, rubber duck!"
+
+    ""
+    $ unlock_topic("faucet", 0)
+    return
+
+label hint_faucet_0:
+    mc "I want to raise the water level but I can't reach that damn faucet!"
+    mc "How can I reach it?"
+    duck "..."
+    mc "My legs can't move so I have to stretch my arms... But they're not long enough. If only I had a way to extend my arm..."
+    duck "..."
+    mc "That's it! I need some kind of pole! There may be one in this bathroom. Thanks, rubber duck!"
+    duck "..."
+    $ unlock_topic("faucet", 0)
+    return
+
+label hint_mop_0:
+    ""
+    return
+
+label hint_mirror_0:
+    ""
+    return
+
+label hint_cloth_0:
+    ""
+    return
+
 # Various interactions
+label look_bath_alarm:
+    $ start_talking()
+    # v1: assume water level is 1, since the game currently ends as soon as you get drowned
+    mc "It displays \"SAFE\". I guess the water is at the right level."
+    $ stop_talking()
+    return
+
 label look_darkness:
     $ start_talking()
-    mc "I can't turn my head in that direction, so I'm not sure what's behind me."
+    mc "I can't turn my head more than 90 degrees in that direction, so I'm not sure what's behind me."
     $ stop_talking()
     return
 
@@ -170,7 +203,6 @@ label water_rises:
     $ raise_water()
     show water lv2
     show character_head lv2
-    show bath_alarm lv2
     show faucet_water:
         xpos 960
         ypos 300
