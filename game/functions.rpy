@@ -113,8 +113,9 @@ init -1 python:
         store.topics_by_priority.appendleft(topic)
 
         # if we progressed in the topic, mark it dirty
+        # if it was already dirty, keep it dirty
         old_progression_index, _old_dirty = store.topic_progression[topic]
-        if not _old_dirty and not dirty and progression_index > old_progression_index:
+        if _old_dirty or not dirty and progression_index > old_progression_index:
             dirty = True
 
         store.topic_progression[topic] = (progression_index, dirty)
