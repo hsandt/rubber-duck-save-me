@@ -154,11 +154,11 @@ label hint_escape_0_recall:
     return
 
 label hint_alarm_0:
-    mc "So the bath alarms only rings when sensing some danger. So I need to trigger one. But what kind?"
+    mc "The bath alarms only rings when sensing some danger. It can't detect that I'm stuck here though. What could it sense then?"
     duck "..."
     mc "Since it's hanging at the top of the bathtub, I assume it can only detect water when it's high enough."
     duck "..."
-    mc "But if it goes too high, danger! All I need is to raise the water level! Thanks, rubber duck!"
+    mc "But if it goes too high, danger... That's it! All I need to do is raise the water level! Thanks, rubber duck!"
     duck "..."
     return
 
@@ -177,7 +177,7 @@ label hint_faucet_0:
     return
 
 label hint_faucet_0_recall:
-    mc "I need to find some kind of pole to reach the faucet handles..."
+    mc "I need to find some kind of pole to reach the faucet's handles..."
     return
 
 label hint_faucet_1:
@@ -186,7 +186,7 @@ label hint_faucet_1:
     return
 
 label hint_faucet_1_recall:
-    mc "Maybe I can use that mop to push the faucet handles?"
+    mc "Maybe I can use that mop to push the faucet's handles?"
     duck "..."
     return
 
@@ -303,7 +303,8 @@ label take_mop:
 label use_faucet:
     $ start_talking()
     if taken_mop:
-        "You turn the faucet on."
+        "You push the faucet's handles with the mop and somewhat manage to turn it on."
+        # TODO FX: hit faucet handles, faucet turn on
         call water_rises
         "The goldfish-shaped bath alarm starts ringing like hell."
         $ stop_talking()
