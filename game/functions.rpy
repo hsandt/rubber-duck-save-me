@@ -46,7 +46,7 @@ init -1 python:
         # say the hint
         return renpy.call(hint_label)
 
-    def unlock_topic(topic, progression_index):
+    def unlock_topic(topic, progression_index, force_no_dirty=False):
         """
         Unlock new topic for Rubber Duck at given progression index, v1: at highest priority
         v1: If topic was already unlocked, it is simply moved to top priority
@@ -56,6 +56,11 @@ init -1 python:
         (it never decreases)
 
         However, dirty flag is only set if topic is new or progression index has changed.
+
+        In addition, no_dirty is an optional flag you use to make sure the new topic+progression
+        in not considered new/important when added.
+        This is useful when you need to update the hint to show some progression,
+        but the hint content itself is not important compared to other active topics.
 
         """
         dirty = False
@@ -75,6 +80,11 @@ init -1 python:
         old_progression_index, _old_dirty = store.topic_progression[topic]
         if _old_dirty or not dirty and progression_index > old_progression_index:
             dirty = True
+
+        # may revert flag set above, but easier to read than if injected
+        # in each condition above
+        if force_no_dirty:
+            dirty = False
 
         store.topic_progression[topic] = (progression_index, dirty)
 

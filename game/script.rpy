@@ -259,7 +259,7 @@ label look_mirror:
                 # TODO: rubbing SFX
                 $ clean_mirror()
                 mc "Ah, that's better. I can see behind me without breaking my neck now."
-                $ unlock_topic("mirror", 3)
+                $ unlock_topic("mirror", 3, force_no_dirty=True)
             else:
                 # TODO: rubbing SFX
                 mc "Hmm... I'm trying to clean the mirror with the cloth, but it's too dry to work."
