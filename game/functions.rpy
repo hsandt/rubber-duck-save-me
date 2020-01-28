@@ -3,48 +3,6 @@
 init -1 python:
     from collections import deque
 
-    # v1: list of discovered topics, from the most recent (relevant) to the oldest
-    # They must cover all unlocked topics.
-    # A topic is discovered when the corresponding item is picked or seen.
-    # In v2, we'll be able to select topic with an icon-based interface,
-    #   this won't be needed anymore.
-    store.topics_by_priority = deque(["escape"])
-
-    # v2: unlocked topics remain in same order, and will be selected manually
-    # This value will replace topics_by_priority
-    # store.unlocked_topics = ["escape"]
-
-    # The unlocked topics are filled when the character sees or picks a new item,
-    # or via a Rubber Duck hint
-    # Full list:
-    # - escape
-    # - alarm
-    # - faucet
-    # - mop
-    # - mirror
-    # - cloth
-
-    # The topic progression dict tells how far the player advanced in a topic
-    #   (or tried and failed).
-    # Each value is [progression_index: integer, dirty: bool]
-    # progression_index:
-    # - 0: topic discovered (item picked or seen), but did not ask Rubber Duck about it yet
-    # - N=1+: asked Rubber Duck N times about this topic
-    # Note that solving the puzzle part related to a topic may make the Rubber Duck
-    #   ignore N and skip to some conclusion sentence like "Mirror is already cleaned!"
-    # dirty:
-    # - True: the character has not talked to Rubber Duck on this topic,
-    #   at this progression yet
-    # - False: hint has already been given on this topic, at this progression
-    store.topic_progression = {
-        "escape": (0, True),  # must start dirty for initial hint
-        "alarm": (0, False),
-        "faucet": (0, False),
-        "mop": (0, False),
-        "mirror": (0, False),
-        "cloth": (0, False)
-    }
-
     def auto_pick_topic():
         """
         v1 only: Auto-pick topic with highest priority (relevance) with a new hint,
@@ -120,20 +78,6 @@ init -1 python:
 
         store.topic_progression[topic] = (progression_index, dirty)
 
-
-    # Hint tracking (actions tried)
-    store.tried_reach_faucet_with_hand = False
-
-    # Progression flag/numbers
-    store.cleaned_mirror = False
-    store.taken_mop = False
-    store.taken_cloth = False
-    store.soaked_cloth = False
-    store.water_level = 1
-
-    # Interaction state
-    store.is_talking = False
-
     def start_talking():
         store.is_talking = True
         # hack to fix cursor not reset when rolling forward into dialogue with mouse hovering interactable object
@@ -145,19 +89,15 @@ init -1 python:
 
     def clean_mirror():
         store.cleaned_mirror = True
-        store.current_objective = "take pole"
 
     def take_cloth():
         store.taken_cloth = True
-        store.current_objective = "soak cloth"
 
     def soak_cloth():
         store.soaked_cloth = True
-        store.current_objective = "clean mirror"
 
     def take_mop():
         store.taken_mop = True
-        store.current_objective = "reach faucet"
 
     def raise_water():
         store.water_level = 2

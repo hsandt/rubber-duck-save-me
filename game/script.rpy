@@ -3,7 +3,64 @@ define staff = Character("Staff member", color="#D881ED")
 define duck = Character("Rubber Duck", color="#FFFF00")
 
 label start:
+    call initialize_store
+    call show_initial_scene
+    return
 
+label initialize_store:
+
+    # v1: list of discovered topics, from the most recent (relevant) to the oldest
+    # They must cover all unlocked topics.
+    # A topic is discovered when the corresponding item is picked or seen.
+    # In v2, we'll be able to select topic with an icon-based interface,
+    #   this won't be needed anymore.
+    # Note: deque is imported in functions.rpy
+    define topics_by_priority = deque(["escape"])
+
+    # v2: unlocked topics remain in same order, and will be selected manually
+    # This value will replace topics_by_priority
+    # store.unlocked_topics = ["escape"]
+
+    # The unlocked topics are filled when the character sees or picks a new item,
+    # or via a Rubber Duck hint
+    # Full list:
+    # - escape
+    # - alarm
+    # - faucet
+    # - mirror
+
+    # The topic progression dict tells how far the player advanced in a topic
+    #   (or tried and failed).
+    # Each value is [progression_index: integer, dirty: bool]
+    # progression_index:
+    # - 0: topic discovered (item picked or seen), but did not ask Rubber Duck about it yet
+    # - N=1+: asked Rubber Duck N times about this topic
+    # Note that solving the puzzle part related to a topic may make the Rubber Duck
+    #   ignore N and skip to some conclusion sentence like "Mirror is already cleaned!"
+    # dirty:
+    # - True: the character has not talked to Rubber Duck on this topic,
+    #   at this progression yet
+    # - False: hint has already been given on this topic, at this progression
+    define topic_progression = {
+        "escape": (0, True),  # must start dirty for initial hint
+        "alarm": (0, False),
+        "faucet": (0, False),
+        "mirror": (0, False)
+    }
+
+    # Progression flag/numbers
+    define cleaned_mirror = False
+    define taken_mop = False
+    define taken_cloth = False
+    define soaked_cloth = False
+    define water_level = 1
+
+    # Interaction state
+    define is_talking = False
+
+    return
+
+label show_initial_scene:
     scene bg bathroom
 
     show bathtub_back:
@@ -89,7 +146,6 @@ label hint_escape_0:
     duck "..."
     mc "Hey! What about this fish-shaped alarm?"
     duck "..."
-    $ unlock_topic("alarm", 0)
     return
 
 label hint_escape_0_recall:
@@ -98,42 +154,94 @@ label hint_escape_0_recall:
     return
 
 label hint_alarm_0:
-    mc "Noise? That's right, I need to trigger the alarm system! If I remember correctly, it starts when the water level is too high."
-    mc "So I just need to raise the level. Thanks, rubber duck!"
+    mc "So the bath alarms only rings when sensing some danger. So I need to trigger one. But what kind?"
+    duck "..."
+    mc "Since it's hanging at the top of the bathtub, I assume it can only detect water when it's high enough."
+    duck "..."
+    mc "But if it goes too high, danger! All I need is to raise the water level! Thanks, rubber duck!"
+    duck "..."
+    return
 
-    ""
-    $ unlock_topic("faucet", 0)
+label hint_alarm_0_recall:
+    mc "Basically if I manage to raise the water level, I'll be safe, right?"
+    duck "..."
     return
 
 label hint_faucet_0:
-    mc "I want to raise the water level but I can't reach that damn faucet!"
-    mc "How can I reach it?"
+    mc "My legs can't move, and I can't reach the faucet with my arms alone..."
     duck "..."
-    mc "My legs can't move so I have to stretch my arms... But they're not long enough. If only I had a way to extend my arm..."
+    mc "Yeah, that's right. I need some tool to extend range."
     duck "..."
-    mc "That's it! I need some kind of pole! There may be one in this bathroom. Thanks, rubber duck!"
+    mc "Like a pole or something."
     duck "..."
-    $ unlock_topic("faucet", 0)
     return
 
-label hint_mop_0:
-    ""
+label hint_faucet_0_recall:
+    mc "I need to find some kind of pole to reach the faucet handles..."
+    return
+
+label hint_faucet_1:
+    mc "The faucet is still too far for my arms alone. But maybe I can use that mop to push the handles from here?"
+    duck "..."
+    return
+
+label hint_faucet_1_recall:
+    mc "Maybe I can use that mop to push the faucet handles?"
+    duck "..."
     return
 
 label hint_mirror_0:
-    ""
+    mc "I can't see anything in the mirror, it's too dirty. But I guess if it was cleaner, it would show the area behind me."
+    duck "..."
+    mc "So how do I clean that thing?"
+    duck "..."
+    mc "Well, I guess a quick wipe with a sponge or cloth would do it good."
+    duck "..."
     return
 
-label hint_cloth_0:
-    ""
+label hint_mirror_0_recall:
+    mc "I could use a sponge or a cloth to clean the mirror, right?"
+    duck "..."
+    return
+
+label hint_mirror_1:
+    mc "That cloth is too dry to clean hard dirt on the mirror. How can I solve that?"
+    duck "..."
+    mc "Soaking it would make it work better, I guess. But where do I find water?"
+    duck "..."
+    mc "Oh, of course."
+    return
+
+label hint_mirror_1_recall:
+    mc "I'll just soak that cloth in a volume of water. Do you mind if borrow you some?"
+    duck "..."
+    return
+
+label hint_mirror_2:
+    pass
+    # fallthrough
+
+label hint_mirror_2_recall:
+    mc "I should try the soaked cloth on the mirror now."
+    duck "..."
+    return
+
+label hint_mirror_3:
+    pass
+    # fallthrough
+
+label hint_mirror_3_recall:
+    mc "I did a nice job, didn't I?"
+    duck "..."
     return
 
 # Various interactions
 label look_bath_alarm:
     $ start_talking()
     # v1: assume water level is 1, since the game currently ends as soon as you get drowned
-    mc "It displays \"SAFE\". I guess the water is at the right level."
+    mc "The bath alarm displays \"SAFE\". It will ring if it detects a danger."
     $ stop_talking()
+    $ unlock_topic("alarm", 0)
     return
 
 label look_darkness:
@@ -148,13 +256,20 @@ label look_mirror:
         if taken_cloth:
             if soaked_cloth:
                 mc "Let's clean this with the cloth."
-                # todo: sfx cleaning up
+                # TODO: rubbing SFX
                 $ clean_mirror()
-                mc "Ah, that's better."
+                mc "Ah, that's better. I can see behind me without breaking my neck now."
+                $ unlock_topic("mirror", 3)
             else:
-                mc "I'd like to clean the mirror with the cloth, but it's too dry."
+                # TODO: rubbing SFX
+                mc "Hmm... I'm trying to clean the mirror with the cloth, but it's too dry to work."
+                $ unlock_topic("mirror", 1)
         else:
             mc "Too much mist and dirt on this mirror, I can't see anything."
+            # FIXME: store var not saved (but saved if modified in call_hint directly)
+            $ unlock_topic("mirror", 0)
+    elif taken_mop:
+        mc "I see nothing me in my back."
     else:
         mc "I can see a mop behind me."
     $ stop_talking()
@@ -174,6 +289,7 @@ label soak_cloth:
     # todo: SFX
     mc "Here we go! Ready to clean."
     $ stop_talking()
+    $ unlock_topic("mirror", 2)
     return
 
 label take_mop:
@@ -181,6 +297,7 @@ label take_mop:
     $ take_mop()
     mc "I got the mop!"
     $ stop_talking()
+    $ unlock_topic("faucet", 1)
     return
 
 label use_faucet:
@@ -193,9 +310,8 @@ label use_faucet:
         jump ending
     else:
         mc "Uhng... I can't reach it my arms!"
-        $ tried_reach_faucet_with_hand = True
-        $ current_objective = "reach faucet"
         $ stop_talking()
+        $ unlock_topic("faucet", 0)
         return
 
 # Events
