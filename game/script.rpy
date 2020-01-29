@@ -89,10 +89,7 @@ label intro:
     mc "Is somebody here?"
     mc "I can't move my legs anymore... And my arms are not strong enough to drag me out of the bathtub!"
     mc "That's not good... I need to find a way to get out, or I will drown!"
-    window hide
-    hide cursor
-    $ pause_hiding_pointer(1.0)
-    window show
+    mc "..."
     mc "OK, cool down... What if I applied the method of Rubber Duck debugging? I'll just state my problem in front of that fine toy, as if I was talking to a person."
     mc "Hopefully, it will help me find a solution."
     window hide
@@ -143,9 +140,13 @@ label hint_escape_0:
     duck "..."
     mc "My legs are completely frozen, and all I can do is turn my head a bit and move my arms."
     duck "..."
-    mc "I need some way to alert the hotel staff outside... Something that makes a lot of noise."
-    duck "..."
-    mc "Hey! What about this fish-shaped alarm?"
+    # if alarm has already been looked at, it is now an active topic
+    if "alarm" in topics_by_priority:
+        mc "I need to alert the hotel staff outside... I guess the fish-shaped alarm should do the job?"
+    else:
+        mc "I need some way to alert the hotel staff outside... Something that makes a lot of noise."
+        duck "..."
+        mc "Hey! What about this fish-shaped alarm?"
     duck "..."
     return
 
