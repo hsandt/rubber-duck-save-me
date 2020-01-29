@@ -22,3 +22,9 @@ The following font has been embedded inside an image:
 
 * Bathtub model from [honestabeplumbing.com](http://www.honestabeplumbing.com/File/c1d9f037-e58e-41b3-b9b9-dd2e68929d1d)
 * Rubber duck from [pngimg.com](http://pngimg.com/download/45708)
+
+## License
+
+Assets are licensed under a [Creative Commons Attribution 4.0 International License](http://creativecommons.org/licenses/by/4.0/).
+
+For code, see [LICENSE](LICENSE).
