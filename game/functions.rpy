@@ -3,6 +3,15 @@
 init -1 python:
     from collections import deque
 
+    def pause_hiding_pointer(duration):
+        # alternatively, config.mouse = {"default": [("invisible_square.png", 0, 0)]}
+        config.mouse_hide_time = 0
+        renpy.pause(duration)
+        # alternatively, config.mouse = None}
+        config.mouse_hide_time = None
+        # known issue: if you open menu in the middle, pointer will remain hidden
+        # need to force reshow it on pause menu...
+
     def auto_pick_topic():
         """
         v1 only: Auto-pick topic with highest priority (relevance) with a new hint,

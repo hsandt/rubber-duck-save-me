@@ -90,7 +90,8 @@ label intro:
     mc "I can't move my legs anymore... And my arms are not strong enough to drag me out of the bathtub!"
     mc "That's not good... I need to find a way to get out, or I will drown!"
     window hide
-    pause 1.0
+    hide cursor
+    $ pause_hiding_pointer(1.0)
     window show
     mc "OK, cool down... What if I applied the method of Rubber Duck debugging? I'll just state my problem in front of that fine toy, as if I was talking to a person."
     mc "Hopefully, it will help me find a solution."
