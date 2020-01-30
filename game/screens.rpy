@@ -1434,7 +1434,11 @@ screen quick_menu():
             textbutton _("Menu") action ShowMenu()
 
 # Custom in-game screens for imagebuttons
-screen bathroom():
+# Known Lint error: "The screen bathroom has not been given
+#   a parameter list. This can be fixed by writing 'screen bathroom():' instead."
+# But don't do it, or all sensitive fields will be considered True independently of is_talking,
+#   for an unknown reason.
+screen bathroom:
 
     # Water (to soak cloth only)
     if taken_cloth and not soaked_cloth:
