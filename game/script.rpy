@@ -1,4 +1,5 @@
-define mc = Character("Jeremiah", color="#FF9331")
+﻿define mc = Character("Jeremiah", color="#FF9331")
+define tuto = Character("Tutorial", color="#FFFFFF")
 define staff = Character("Staff member", color="#D881ED")
 define duck = Character("Rubber Duck", color="#FFFF00")
 
@@ -90,8 +91,10 @@ label intro:
     mc "I can't move my legs anymore... And my arms are not strong enough to drag me out of the bathtub!"
     mc "That's not good... I need to find a way to get out, or I will drown!"
     mc "..."
-    mc "OK, cool down... What if I applied the method of Rubber Duck debugging? I'll just state my problem in front of that fine toy, as if I was talking to a person."
+    mc "OK, cool down... What if I applied the method of Rubber Duck debugging?"
+    mc "I'll just state my problem in front of that fine toy, as if talking to a person."
     mc "Hopefully, it will help me find a solution."
+    tuto "Click on any item to interact with it. The most meaningful action will automatically be done."
     window hide
     $ stop_talking()
     jump free_interaction
@@ -281,6 +284,7 @@ label take_cloth:
     $ start_talking()
     $ take_cloth()
     mc "I got a microfiber cloth."
+    tuto "There is no inventory in this game, you just use the last picked item with another one, if it makes sense."
     $ stop_talking()
     return
 
