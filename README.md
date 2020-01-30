@@ -1,8 +1,6 @@
 # Rubber Duck, Save Me!
 
-A kind of escape room made with Ren'Py, originally for [Taku's Mini Jam](https://itch.io/jam/takus-mini-jam) on the theme "Rubber Duck" (chosen among three), then (about to be) submitted to the [Finally Finish Something 2020](https://itch.io/jam/finally-finish-something-2020).
-
-Taku's Mini Jam ran from May 24, 2019 to May 28, but the game was far from finished, so I decided not to submit it and continue working on it over the year. Then I found about the FFS jam and found it was a good opportunity to submit it for real this time.
+A kind of escape room made with Ren'Py, originally for [Taku's Mini Jam](https://itch.io/jam/takus-mini-jam) in May 2019 on the theme "Rubber Duck" (chosen among three). The game was not finished in time though, so I decided to submit it for the [Finally Finish Something 2020](https://itch.io/jam/finally-finish-something-2020) instead.
 
 ## Tools
 
