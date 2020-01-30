@@ -361,12 +361,17 @@ label ending:
     with Dissolve(1.5)
 
     "Jeremiah was saved in extremis from an imminent death."
-    "He was grateful, of course, to his incredible wits, but also to the rubber duck, a small being that helped him to formulate his problem and find innovative solutions."
+    "He was grateful, of course, to his incredible wits, but also to the rubber duck itself."
+    "That small being helped him formulate his problem and find innovative solutions."
     "He also promised never to stay in a freezing cold bath again."
 
     stop music fadeout 3.0
-
     pause 3.0
+
+    show text "Thank you for playing!" as text_end with Dissolve(1.5)
+    pause 2.0
+    hide text_end with Dissolve(1.5)
+
     $ stop_talking()
     $ game_over = True
     return
