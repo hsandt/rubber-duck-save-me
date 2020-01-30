@@ -44,4 +44,4 @@ image character_head lv2 = "images/char/Character_Head_Level2.png"
 define audio.bathroom = "audio/bgm/Bathroom_v6_Harpsichord_55bpm_trimmed.ogg"
 
 ## SFX
-define audio.break_door = "sfx/break_door.wav"
+define audio.door_break = "audio/sfx/door_break.ogg"

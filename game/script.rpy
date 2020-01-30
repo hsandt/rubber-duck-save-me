@@ -1,4 +1,4 @@
-﻿define mc = Character("Jeremiah", color="#FF9331")
+define mc = Character("Jeremiah", color="#FF9331")
 define staff = Character("Staff member", color="#D881ED")
 define duck = Character("Rubber Duck", color="#FFFF00")
 
@@ -337,22 +337,30 @@ label ending:
     staff "Hello? Is there somebody?"
     mc "Yes! I'm stuck in the bath and I can't move my legs! Can you get me out of here?"
     staff "Ok, just a moment. I need to find a way to open the door."
-    # play sound break_door
     window hide
+
+    # Door break FX + SFX
+    pause 0.5
+    play sound door_break
+    show screen bathroom with hpunch
+
     pause 1.0
     window show
+    "After knocking the door down, the staff person hastily enters the bathroom."
     staff "Are you alright??"
     mc "Yeah, thank you... I was about to dro-- *blub blub blub*"
     staff "Hey, hold on! Hold on!!"
+    window hide
+
     hide screen bathroom
     show overlay black
-    with dissolve
+    with Dissolve(1.5)
+
     "Jeremiah was saved in extremis from an imminent death."
     "He was grateful, of course, to his incredible wits, but also to the rubber duck, a small being that helped him to formulate his problem and find innovative solutions."
     "He also promised never to stay in a freezing cold bath again."
-    window hide
 
-    stop music fadeout 1.0
+    stop music fadeout 3.0
 
     pause 1.0
     $ stop_talking()

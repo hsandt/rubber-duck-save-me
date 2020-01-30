@@ -7,8 +7,10 @@ Taku's Mini Jam ran from May 24, 2019 to May 28, but the game was far from finis
 ## Tools
 
 * Ren'Py 7.3.5
-* Inkscape
 * Sublime Text
+* Inkscape
+* LMMS
+* [Online Sequencer](https://onlinesequencer.net)
 
 ## Assets copyright
 

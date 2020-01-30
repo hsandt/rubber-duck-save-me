@@ -1510,7 +1510,7 @@ screen bathroom:
     if not cleaned_mirror:
         imagebutton:
             idle "darkness"
-            xpos 0
+            xpos -20
             ypos 0
             sensitive not is_talking
             focus_mask "darkness_mask"
