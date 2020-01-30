@@ -1434,7 +1434,7 @@ screen quick_menu():
             textbutton _("Menu") action ShowMenu()
 
 # Custom in-game screens for imagebuttons
-screen bathroom:
+screen bathroom():
 
     # Water (to soak cloth only)
     if taken_cloth and not soaked_cloth:
