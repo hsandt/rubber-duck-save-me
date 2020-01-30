@@ -3,24 +3,36 @@ define tuto = Character("Tutorial", color="#FFFFFF")
 define staff = Character("Staff member", color="#D881ED")
 define duck = Character("Rubber Duck", color="#FFFF00")
 
+# Variables stored by reference, such as containers should *not* be initialized
+# to their values ([], {}, deque(), etc.) in define nor init -1 python
+# because that default value would be initialized once on app start only.
+# Therefore, any future change to that value (e.g. container content change)
+# would reflect on the initialization value, causing invalid save/load
+# and no reset when going back to Main Menu.
+# This is similar to the issue of default parameter value=[] in Python,
+# so we use the same fix as in Python, initializing to None by convention.
+# Then we make sure to initialize those values in label start (not -1),
+# and using Python assignment instead of define
+define topics_by_priority = None
+define topic_progression = None
+
+# Progression flag/numbers
+define cleaned_mirror = False
+define taken_mop = False
+define taken_cloth = False
+define soaked_cloth = False
+define water_level = 1
+
+# Interaction state
+define is_talking = False
+
+
 label start:
     call initialize_store from _call_initialize_store
     call show_initial_scene from _call_show_initial_scene
     return
 
 label initialize_store:
-
-    # v1: list of discovered topics, from the most recent (relevant) to the oldest
-    # They must cover all unlocked topics.
-    # A topic is discovered when the corresponding item is picked or seen.
-    # In v2, we'll be able to select topic with an icon-based interface,
-    #   this won't be needed anymore.
-    # Note: deque is imported in functions.rpy
-    define topics_by_priority = deque(["escape"])
-
-    # v2: unlocked topics remain in same order, and will be selected manually
-    # This value will replace topics_by_priority
-    # store.unlocked_topics = ["escape"]
 
     # The unlocked topics are filled when the character sees or picks a new item,
     # or via a Rubber Duck hint
@@ -29,6 +41,18 @@ label initialize_store:
     # - alarm
     # - faucet
     # - mirror
+
+    # v1: list of discovered topics, from the most recent (relevant) to the oldest
+    # They must cover all unlocked topics.
+    # A topic is discovered when the corresponding item is picked or seen.
+    # In v2, we'll be able to select topic with an icon-based interface,
+    #   this won't be needed anymore.
+    # Note: deque is imported in functions.rpy
+    $ store.topics_by_priority = deque(["escape"])
+
+    # v2: unlocked topics remain in same order, and will be selected manually
+    # This value will replace topics_by_priority
+    # store.unlocked_topics = ["escape"]
 
     # The topic progression dict tells how far the player advanced in a topic
     #   (or tried and failed).
@@ -42,22 +66,12 @@ label initialize_store:
     # - True: the character has not talked to Rubber Duck on this topic,
     #   at this progression yet
     # - False: hint has already been given on this topic, at this progression
-    define topic_progression = {
+    $ store.topic_progression = {
         "escape": (0, True),  # must start dirty for initial hint
         "alarm": (0, False),
         "faucet": (0, False),
         "mirror": (0, False)
     }
-
-    # Progression flag/numbers
-    define cleaned_mirror = False
-    define taken_mop = False
-    define taken_cloth = False
-    define soaked_cloth = False
-    define water_level = 1
-
-    # Interaction state
-    define is_talking = False
 
     return
 
