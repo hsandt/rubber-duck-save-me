@@ -362,7 +362,7 @@ label ending:
 
     stop music fadeout 3.0
 
-    pause 1.0
+    pause 3.0
     $ stop_talking()
     $ game_over = True
     return
