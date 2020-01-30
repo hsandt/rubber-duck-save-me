@@ -4,8 +4,8 @@ define staff = Character("Staff member", color="#D881ED")
 define duck = Character("Rubber Duck", color="#FFFF00")
 
 label start:
-    call initialize_store
-    call show_initial_scene
+    call initialize_store from _call_initialize_store
+    call show_initial_scene from _call_show_initial_scene
     return
 
 label initialize_store:
@@ -311,7 +311,7 @@ label use_faucet:
     if taken_mop:
         "You push the faucet's handles with the mop and somewhat manage to turn it on."
         # TODO FX: hit faucet handles, faucet turn on
-        call water_rises
+        call water_rises from _call_water_rises
         "The goldfish-shaped bath alarm starts ringing like hell."
         $ stop_talking()
         jump ending
