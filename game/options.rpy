@@ -23,14 +23,17 @@ define gui.show_name = True
 
 ## The version of the game.
 
-define config.version = "1.0"
+define config.version = "1.1"
 
 
 ## Text that is placed on the game's about screen. Place the text between the
 ## triple-quotes, and leave a blank line between paragraphs.
 
 define gui.about = _p("""This game was started for {a=https://itch.io/jam/takus-mini-jam}Taku's Mini Jam{/a} in 2019
-    without being submitted, then submitted to {a=https://itch.io/jam/finally-finish-something-2020}Finally Finish Something 2020{/a}.
+without being submitted, then submitted to {a=https://itch.io/jam/finally-finish-something-2020}Finally Finish Something 2020{/a}
+on itch.io ({a=https://hsandt.itch.io/rubber-duck-save-me}game page{/a}).
+
+Code, art and audio by komehara.
 """)
 
 
